@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM node:lts-alpine3.13
 LABEL maintainer="cai <cai@gmail.com>"
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     LANG=zh_CN.UTF-8 \
