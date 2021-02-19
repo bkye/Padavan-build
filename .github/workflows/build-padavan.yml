@@ -28,6 +28,6 @@ jobs:
           imageName: bkye/ctest
           dockerFile: ./Dockerfile
           platform: linux/amd64,linux/arm64,linux/arm/v7
-          tag: v5
+          tag: v3
           dockerUser: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerPassword: ${{ secrets.DOCKERHUB_TOKEN }}
