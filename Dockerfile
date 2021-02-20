@@ -1,4 +1,4 @@
-FROM node:lts-alpine3.13
+FROM node:lts-alpine
 LABEL maintainer="cai <cai@gmail.com>"
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     LANG=zh_CN.UTF-8 \
@@ -21,7 +21,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
                              perl \
                              openssl \
 			     openssh \
-			     python \
     && rm -rf /var/cache/apk/* \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
