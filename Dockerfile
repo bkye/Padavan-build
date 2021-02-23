@@ -37,6 +37,6 @@ RUN apk update -f \
     && ln -sf ${JD_DIR}/export_sharecodes.sh /usr/local/bin/export_sharecodes \
     && cp -f ${JD_DIR}/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh \
     && chmod 777 /usr/local/bin/docker-entrypoint.sh \
-    && rm -rf /root/.npm \
+    && rm -rf /root/.npm
 WORKDIR ${JD_DIR}
 ENTRYPOINT docker-entrypoint.sh
