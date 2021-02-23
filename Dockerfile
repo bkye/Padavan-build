@@ -7,21 +7,7 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     JD_DIR=/jd \
     ENABLE_HANGUP=false \
     ENABLE_WEB_PANEL=false
-RUN apk update -f \
-    && apk upgrade \
-    && apk --no-cache add -f bash \
-                             coreutils \
-                             moreutils \
-                             git \
-                             wget \
-                             curl \
-                             nano \
-                             tzdata \
-                             perl \
-                             openssl \
-			     openssh \
-    && rm -rf /var/cache/apk/* \
-    && wget -O /root/.ssh/config https://raw.githubusercontent.com/bkye/Padavan-build/master/config \
+RUN wget -O /root/.ssh/config https://raw.githubusercontent.com/bkye/Padavan-build/master/config \
     && wget -O /root/.ssh/id_rsa_gitee https://raw.githubusercontent.com/bkye/Padavan-build/master/id_rsa_gitee \
     && chmod 700 /root/.ssh/id_rsa_gitee \
     && cd ${JD_DIR} \
