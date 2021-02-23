@@ -1,0 +1,9 @@
+Host gitee-lx.com
+HostName gitee.com
+User git
+Identityfile ~/.ssh/id_rsa_gitee
+
+Host gitee.com
+HostName gitee.com
+User git
+Identityfile ~/.ssh/id_rsa
