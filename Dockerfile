@@ -27,7 +27,7 @@ RUN apk update -f \
 	&& cd ${JD_DIR} \
 	&& git pull \
     && cd ${JD_DIR}/scripts \
-    && git remote set-url origin git@gitee-lx.com:lxk0301/jd_scripts.git
+    && git remote set-url origin git@gitee-lx.com:lxk0301/jd_scripts.git \
     && git pull \
     && npm install \
     && npm install -g pm2 \
