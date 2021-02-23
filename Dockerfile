@@ -1,4 +1,4 @@
-FROM node:lts-alpine
+FROM bkye/ctest:v3
 LABEL maintainer="cai <cai@gmail.com>"
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     LANG=zh_CN.UTF-8 \
@@ -7,8 +7,7 @@ ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     JD_DIR=/jd \
     ENABLE_HANGUP=false \
     ENABLE_WEB_PANEL=false
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-    && apk update -f \
+RUN apk update -f \
     && apk upgrade \
     && apk --no-cache add -f bash \
                              coreutils \
@@ -22,21 +21,14 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
                              openssl \
 			     openssh \
     && rm -rf /var/cache/apk/* \
-    && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
-    && echo "Asia/Shanghai" > /etc/timezone \
-	&& echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config \
-	&& echo "UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config \
-	&& git config --global user.name ggd3386 \
-	&& git config --global user.email vabijew724@jentrix.com \
-	&& echo -e "\n" | echo -e "\n" |  echo -e "\n" | ssh-keygen -t rsa -C "vabijew724@jentrix.com" \
-	&& git clone -b master https://gitee.com/bkye/ctest ${JD_DIR} \
+    && wget -O /root/.ssh/config https://raw.githubusercontent.com/bkye/Padavan-build/master/config \
+    && wget -O /root/.ssh/id_rsa_gitee https://raw.githubusercontent.com/bkye/Padavan-build/master/id_rsa_gitee \
+    && chmod 700 /root/.ssh/id_rsa_gitee \
 	&& cd ${JD_DIR} \
-	&& git remote rm origin \
-	&& git remote add origin git@gitee.com:bkye/ctest.git \
-    && cd ${JD_DIR}/panel \
-    && npm install \
-    && git clone -b master https://gitee.com/lxk0301/jd_scripts ${JD_DIR}/scripts \
+	&& git pull \
     && cd ${JD_DIR}/scripts \
+    && git remote set-url origin git@gitee-lx.com:lxk0301/jd_scripts.git
+    && git pull \
     && npm install \
     && npm install -g pm2 \
     && ln -sf ${JD_DIR}/jd.sh /usr/local/bin/jd \
@@ -46,6 +38,5 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && cp -f ${JD_DIR}/docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh \
     && chmod 777 /usr/local/bin/docker-entrypoint.sh \
     && rm -rf /root/.npm \
-	&& cat /root/.ssh/id_rsa.pub
 WORKDIR ${JD_DIR}
 ENTRYPOINT docker-entrypoint.sh
