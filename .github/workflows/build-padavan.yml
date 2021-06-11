@@ -28,6 +28,6 @@ jobs:
           imageName: bkye/fk
           dockerFile: ./Dockerfile
           platform: linux/amd64,linux/arm64
-          tag: v611
+          tag: v1
           dockerUser: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerPassword: ${{ secrets.DOCKERHUB_TOKEN }}
