@@ -52,8 +52,10 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 	&& cat /root/.ssh/known_hosts \
     ##&& git config --global pull.ff only \
     && git clone -b $JD_SHELL_BRANCH $JD_SHELL_URL $JD_DIR \
-    && echo "========= 安装PM2 =========" \
-    && npm install -g pm2@4.5.6 \
+    && echo "========= 安装PM2与面板依赖 =========" \
+    && npm install -g pm2@latest \
+    && cd $JD_DIR/jpanel \
+    && npm install \
     && echo "========= 创建软链接 =========" \
     && ln -sf $JD_DIR/jtask.sh /usr/local/bin/jtask \
     && ln -sf $JD_DIR/jtask.sh /usr/local/bin/otask \
@@ -71,5 +73,26 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && ln -sf $JD_DIR/s6-overlay/etc/cont-init.d /etc/cont-init.d \
     && ln -sf $JD_DIR/s6-overlay/etc/services.d /etc/services.d \
     && echo "========= 清理 =========" \
-    && rm -rf /root/.npm /var/cache/apk/*
+    && rm -rf /root/.npm /var/cache/apk/* \
+    && apk add --no-cache -f \
+       jq \
+       python3 \
+       py3-pip \
+       zlib-dev \
+       jpeg-dev \
+       freetype-dev \
+    && echo "========= 安装编译软件 =========" \
+    && apk add --no-cache --virtual .build \
+       gcc \
+       python3-dev \
+       musl-dev \
+    && echo "========= 创建软链接 =========" \
+    && ln -sf /usr/bin/python3 /usr/bin/python \
+    && echo "========= 运行 pip install =========" \
+    && pip3 install --upgrade pip \
+    && cd $JD_DIR/jbot \
+    && pip3 install -r requirements.txt \
+    && echo "========= 清理 =========" \
+    && apk del .build \
+    && rm -rf /root/.cache /var/cache/apk/*
 ENTRYPOINT ["/init"]
