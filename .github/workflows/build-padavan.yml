@@ -25,9 +25,9 @@ jobs:
         uses: ilteoood/docker_buildx@master
         with:
           publish: true
-          imageName: bkye/fk
+          imageName: bkye/ctest
           dockerFile: ./Dockerfile
           platform: linux/amd64,linux/arm64
-          tag: v1
+          tag: v3
           dockerUser: ${{ secrets.DOCKERHUB_USERNAME }}
           dockerPassword: ${{ secrets.DOCKERHUB_TOKEN }}
