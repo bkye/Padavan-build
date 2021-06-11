@@ -25,7 +25,7 @@ jobs:
         uses: ilteoood/docker_buildx@master
         with:
           publish: true
-          imageName: bkye/fk
+          imageName: accors/dhhd
           dockerFile: ./Dockerfile
           platform: linux/amd64,linux/arm64
           tag: v1
