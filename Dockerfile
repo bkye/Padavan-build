@@ -51,9 +51,9 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && ssh-keyscan $REPO_URL > /root/.ssh/known_hosts \
     && ssh-keyscan 180.97.125.228 >> /root/.ssh/known_hosts \
     && git config --global pull.ff only \
-    && echo "127.0.0.1 a.nz.lu"  >> /etc/hosts \
-    && echo "127.0.0.1 cdn.annnibb.me" >> /etc/hosts \
-    && echo "127.0.0.1 cdn.trueorfalse.top" >> /etc/hosts \
+    && echo "127.0.0.1 a.nz.lu" > /etc/hosts \
+    && echo "127.0.0.1 cdn.annnibb.me" > /etc/hosts \
+    && echo "127.0.0.1 cdn.trueorfalse.top" > /etc/hosts \
     && git clone -b $JD_SHELL_BRANCH $JD_SHELL_URL $JD_DIR \
     && echo "========= 安装PM2与面板依赖 =========" \
     && npm install -g pm2@latest \
