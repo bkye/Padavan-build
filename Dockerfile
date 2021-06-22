@@ -37,6 +37,11 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
        nodejs \
        npm \
        vim \
+       build-base \
+       g++ \
+       cairo-dev \
+       pango-dev \
+       giflib-dev \
     && echo "========= 修改时区 =========" \
     && ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
     && echo "Asia/Shanghai" > /etc/timezone \
@@ -52,10 +57,13 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && ssh-keyscan 180.97.125.228 >> /root/.ssh/known_hosts \
     && git config --global pull.ff only \
     && git clone -b $JD_SHELL_BRANCH $JD_SHELL_URL $JD_DIR \
+    && git clone -b $JD_SCRIPTS_BRANCH $JD_SCRIPTS_URL $JD_DIR/scripts \
     && echo "========= 安装PM2与面板依赖 =========" \
     && npm install -g pm2@latest \
     && cd $JD_DIR/jpanel \
     && npm install \
+    && cd $JD_DIR/scripts \
+    && npm install canvas --build-from-source \
     && echo "========= 创建软链接 =========" \
     && ln -sf $JD_DIR/jtask.sh /usr/local/bin/jtask \
     && ln -sf $JD_DIR/jtask.sh /usr/local/bin/otask \
