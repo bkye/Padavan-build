@@ -34,7 +34,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
        tzdata \
        perl \
        openssh-client \
-       nodejs-lts \
+       nodejs \
        npm \
        vim \
        build-base \
@@ -61,7 +61,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && npm install -g pm2@latest \
     && cd $JD_DIR/jpanel \
     && npm install \
-    && cd $JD_DIR \
+    && cd $JD_DIR/scripts \
     && npm install canvas --build-from-source \
     && echo "========= 创建软链接 =========" \
     && ln -sf $JD_DIR/jtask.sh /usr/local/bin/jtask \
