@@ -40,6 +40,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
        build-base \
        g++ \
        cairo-dev \
+       jpeg-dev \
        pango-dev \
        giflib-dev \
     && echo "========= 修改时区 =========" \
@@ -62,8 +63,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && npm install -g pm2@latest \
     && cd $JD_DIR/jpanel \
     && npm install \
-    && cd $JD_DIR \
-    && npm install canvas \
+    && cd $JD_DIR/scripts \
+    && npm install canvas --build-from-source \
     && echo "========= 创建软链接 =========" \
     && ln -sf $JD_DIR/jtask.sh /usr/local/bin/jtask \
     && ln -sf $JD_DIR/jtask.sh /usr/local/bin/otask \
