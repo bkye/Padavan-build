@@ -92,10 +92,6 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && pip3 install --upgrade pip \
     && cd $JD_DIR/jbot \
     && pip3 install -r requirements.txt \
-    && echo "========= 安装软件包 =========" \
-    && npm install -g cnpm \
-    && cnpm install -g canvas \
-    && cp -rf /usr/lib/node_modules/canvas /jd/scripts/node_modules \
     && echo "========= 清理 =========" \
     && apk del .build \
     && rm -rf /root/.cache /var/cache/apk/*
