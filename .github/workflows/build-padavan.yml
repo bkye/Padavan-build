@@ -24,7 +24,6 @@ jobs:
         run: |
          sudo apt-get update
          sudo apt-get -y install wget
-         wget --no-check-certificate https://openwrt.cc/releases/targets/rockchip/armv8/openwrt-rockchip-armv8-rootfs.tar.gz
       - name: Build and publish image
         uses: ilteoood/docker_buildx@master
         with:
